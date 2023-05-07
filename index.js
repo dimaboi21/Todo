@@ -7,7 +7,7 @@ savedTodos.forEach((todo) => {
   const li = document.createElement("li");
   li.innerHTML = `
     <input type="checkbox" ${todo.completed ? "checked" : ""}/>
-    <span>${todo.value}</span>
+    <span>${todo.text}</span>
     <button>Видалити</button>
     `;
   todoList.appendChild(li);
@@ -18,9 +18,9 @@ addBtn.addEventListener("click", (e) => {
 
   if (todoInput.value !== "") {
     const todo = {
-        text:todoInput.value,
-        completed:false
-    }
+      text: todoInput.value,
+      completed: false,
+    };
     const li = document.createElement("li");
     li.innerHTML = `
     <input type="checkbox" />
@@ -37,15 +37,15 @@ addBtn.addEventListener("click", (e) => {
 
 todoList.addEventListener("click", (e) => {
   if (e.target.tagName === "BUTTON") {
-    const li =e.target.preventNode;
+    const li = e.target.parentNode;
     const index = Array.prototype.indexOf.call(todoList.children, li);
-    savedTodos.savedTodos.splice(index, 1);
+    savedTodos.splice(index, 1);
     localStorage.setItem("todos", JSON.stringify(savedTodos));
     li.remove();
   } else if (e.target.tagName === "INPUT") {
-    const li = e.target.preventNode;
-    const index = Array.prototype.indexOf.call(todolist.shildren, li);
-    savedTodos [index].completed = e.target.checked;
+    const li = e.target.parentNode;
+    const index = Array.prototype.indexOf.call(todoList.children, li);
+    savedTodos[index].completed = e.target.checked;
     localStorage.setItem("todos", JSON.stringify(savedTodos));
   }
 });
